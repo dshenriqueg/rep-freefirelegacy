@@ -1,14 +1,16 @@
 const express = require('express');
 const app = express();
 
-// O Render define a porta automaticamente através da variável de ambiente PORT.
-// Caso esteja rodando localmente no seu PC, ele usará a porta 3000.
 const port = process.env.PORT || 3000;
 
-// Configurando a rota exata que o jogo busca
+// Middleware para limpar barras duplas/múltiplas excessivas na URL (corrige o padding do APK)
+app.use((req, res, next) => {
+    req.url = req.url.replace(/\/+/g, '/');
+    next();
+});
+
+// Agora a rota vai aceitar perfeitamente qualquer quantidade de barras antes de /live/ver.php
 app.get('/live/ver.php', (req, res) => {
-    
-    // O jogo espera um status 200 (OK) e o objeto JSON
     res.status(200).json({
         "appstore_url": "https://discord.gg/barbosaproject",
         "billboard_msg": "",
