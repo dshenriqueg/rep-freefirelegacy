@@ -1,59 +1,34 @@
 const express = require('express');
 const app = express();
 
-// O Render fornece a porta automaticamente através da variável de ambiente PORT.
-// Caso esteja rodando localmente no seu PC, usará a porta 3000.
-const PORT = process.env.PORT || 3000;
+// O Render define a porta automaticamente através da variável de ambiente PORT.
+// Caso esteja rodando localmente no seu PC, ele usará a porta 3000.
+const port = process.env.PORT || 3000;
 
-// Configuração para o Express conseguir ler os dados (JSON e formulários POST) enviados pelo jogo
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Rota raiz apenas para você verificar pelo navegador se o servidor está rodando
-app.get('/', (req, res) => {
-    res.send('Servidor Backend Customizado - Online');
-});
-
-// ---------------------------------------------------------
-// ROTAS DE AUTENTICAÇÃO E LOGIN
-// ---------------------------------------------------------
-
-app.post('/oauth/token/facebook/exchange', (req, res) => {
-    console.log("[LOGIN] Tentativa de login via Facebook interceptada.");
-    console.log("[LOGIN] Dados enviados pelo jogo:", req.body);
-
-    // Estrutura JSON exata exigida pelo método exchangeTokenFromGOP no classes.dex
-    const fakeLoginResponse = {
-        open_id: "davi_admin_999",
-        access_token: "token_seguro_123",
-        expiry_time: 2147483647, // Valor alto para não expirar
-        platform: 1              // 1 = GARENA_NATIVE_ANDROID
-    };
-
-    res.json(fakeLoginResponse);
-    console.log("[LOGIN] Resposta de sucesso (JSON) enviada de volta para o jogo.");
-});
-
-// ---------------------------------------------------------
-// OUTRAS ROTAS (Baseadas no SDKConstants)
-// ---------------------------------------------------------
-
-app.get('/app/info/get', (req, res) => {
-    console.log("[INFO] O jogo solicitou a rota /app/info/get");
+// Configurando a rota exata que o jogo busca
+app.get('/live/ver.php', (req, res) => {
     
-    // Retornando um JSON genérico por enquanto. Se o jogo travar aqui, 
-    // precisaremos procurar o leitor dessa rota no Smali também.
-    res.json({
-        status: "success"
+    // O jogo espera um status 200 (OK) e o objeto JSON
+    res.status(200).json({
+        "appstore_url": "https://discord.gg/barbosaproject",
+        "billboard_msg": "",
+        "cdn_url": "https://rep-freefirelegacy.onrender.com/",
+        "client_ip": "201.11.13.33",
+        "code": 0,
+        "country_code": "BR",
+        "force_to_restart_app": false,
+        "gdpr_version": 2,
+        "is_firewall_open": false,
+        "is_review_server": false,
+        "is_server_open": true,
+        "maintenance_announcement": "",
+        "maintenance_region": "",
+        "remote_option_version": "1.25.3",
+        "remote_version": "1.29.3",
+        "server_url": "https://rep-freefirelegacy.onrender.com/"
     });
 });
 
-app.get('/app/feedback/app/info/get', (req, res) => {
-    console.log("[INFO] O jogo solicitou a rota de feedback de info");
-    res.json({ status: "success" });
-});
-
-// Inicia o servidor
-app.listen(PORT, () => {
-    console.log(`[SISTEMA] Servidor rodando perfeitamente na porta ${PORT}`);
+app.listen(port, () => {
+    console.log(`Servidor rodando e escutando na porta ${port}`);
 });
