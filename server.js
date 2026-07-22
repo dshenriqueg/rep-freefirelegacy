@@ -8,7 +8,7 @@ app.use((req, res, next) => {
 
 // Coloque aqui o link RAW do seu arquivo config.json no GitHub
 // Exemplo: https://raw.githubusercontent.com/seu-usuario/seu-repo/main/config.json
-const EXTERNAL_JSON_URL = 'COLOQUE_O_LINK_RAW_DO_GITHUB_AQUI';
+const EXTERNAL_JSON_URL = 'https://raw.githubusercontent.com/dshenriqueg/rep-freefirelegacy/refs/heads/main/config.json';
 
 app.all('/live/*', async (req, res) => {
     try {
