@@ -10,7 +10,7 @@ app.get('/app/info/get', (req, res) => {
     console.log("O jogo pediu as configurações via /app/info/get");
     // O jogo espera um JSON estruturado aqui
     res.json({
-        status: "success",
+        status: "1",
         // O restante do payload original deve ser inserido aqui
     });
 });
