@@ -1,79 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Login do Servidor</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f0f0f;
-            color: #e0e0e0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            background-color: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            padding: 40px 30px;
-            max-width: 350px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        .container h1 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .container p {
-            font-size: 12px;
-            color: #888888;
-            margin-bottom: 30px;
-        }
-        .btn-auth {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background-color: #2a2a2a;
-            color: #ffffff;
-            border: 1px solid #404040;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .btn-auth:hover {
-            background-color: #333333;
-            border-color: #555555;
-        }
-        .btn-auth:active {
-            background-color: #202020;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Free Fire Legacy</title>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Acesso ao Servidor</h1>
-        <p>Clique abaixo para prosseguir com a autenticação.</p>
+    <!-- O seu botão de login. O mais importante aqui é o id="btn-login" -->
+    <a id="btn-login" href="#">Entrar com Facebook</a>
+
+    <script>
+        // 1. Lê todos os parâmetros da URL que o motor Unity/Webview gerou
+        const urlParams = new URLSearchParams(window.location.search);
         
-        <!-- Hiperlink direto para evitar o bloqueio do Webview -->
-        <a href="fbconnect://success?access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&uid=10050899&code=0" class="btn-auth">Entrar no Jogo</a>
-    </div>
+        // 2. Pega especificamente a chave de segurança "state"
+        const state = urlParams.get('state');
+
+        // 3. Monta a nossa URL de sucesso base
+        let redirectUrl = 'fbconnect://success?access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&uid=10050899&code=0';
+
+        // 4. Se existir um state, injetamos ele no link de retorno
+        if (state) {
+            redirectUrl += '&state=' + encodeURIComponent(state);
+        }
+
+        // 5. Atualiza o link do botão para que o clique devolva os dados completos ao app
+        document.getElementById('btn-login').href = redirectUrl;
+    </script>
 
 </body>
 </html>
