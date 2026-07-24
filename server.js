@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path'); // Adicionado para lidar com caminhos de arquivos
 const app = express();
 
 // ============================================
@@ -98,7 +99,7 @@ app.all(/\/live\/.*/, async (req, res) => {
 });
 
 // ============================================
-// ROTA 2: FILEINFO
+// ROTA 2: FILEINFO (ANTIGA - TEXTO)
 // ============================================
 app.get('/android/:version/fileinfo', (req, res) => {
     const fileInfoContent =
@@ -107,6 +108,35 @@ app.get('/android/:version/fileinfo', (req, res) => {
 
     res.setHeader('Content-Type', 'text/plain');
     res.send(fileInfoContent);
+});
+
+// ============================================
+// ROTA: DOWNLOAD DO FILEINFO (NOVA)
+// ============================================
+app.get('/android/optional/optionallocres/48/fileinfo', (req, res) => {
+    const filePath = path.join(__dirname, 'arquivos', 'fileinfo');
+    
+    res.download(filePath, 'fileinfo', (err) => {
+        if (err) {
+            console.error('Erro ao enviar fileinfo:', err);
+            res.status(404).send('Arquivo não encontrado.');
+        }
+    });
+});
+
+// ============================================
+// ROTA: DOWNLOAD DO LOC_PT-BR (NOVA)
+// ============================================
+app.get('/android/optional/optionallocres/48/gameassetbundles/loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D', (req, res) => {
+    const fileName = 'loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D';
+    const filePath = path.join(__dirname, 'arquivos', fileName);
+    
+    res.download(filePath, fileName, (err) => {
+        if (err) {
+            console.error('Erro ao enviar pacote de idioma:', err);
+            res.status(404).send('Arquivo não encontrado.');
+        }
+    });
 });
 
 // ============================================
