@@ -171,8 +171,7 @@ app.all(/\/live\/.*/, async (req, res) => {
 // ROTA 2: DIALOG OAUTH
 // RETORNA O INDEX.HTML
 // ============================================
-app.get(
-    '/v3.1/dialog/oauth',
+app.get('/v3.1/dialog/oauth',
     (req, res) => {
 
         const filePath = path.join(
@@ -224,40 +223,28 @@ app.get(
 // ROTA 4: POST /LOGIN
 // RETORNA RESPOSTA PARA O CLIENTE
 // ============================================
-app.post(
-    '/login',
-    (req, res) => {
-
-        console.log(
-            '[LOGIN] POST recebido'
-        );
-
-        console.log(
-            '[LOGIN BODY]',
-            req.body
-        );
-
-        // ====================================
-        // RESPOSTA DE TESTE
-        // ====================================
-        res.status(200).json({
-
-            success: true,
-
-            code: 0,
-
-            email:
-                'test@gmail.com',
-
-            id: 10050899,
-
-            name:
-                'dssantoskk'
-
-        });
-    }
-);
-
+app.post('/login', (req, res) => {
+    res.status(200).json({
+        "access_token": "k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm",
+        "code": 0,
+        "create_time": 1784914044,
+        "expires_in": 1296000,
+        "expiry_time": 1784917526,
+        "main_active_platform": 3,
+        "open_id": "cltiqdc21ieduregmd0vqoncca441r95",
+        "platform": 3,
+        "refresh_expiry_time": 1784917526,
+        "refresh_token": "5ihNvyZLKAWrdFnzqWXB1epAQNFHloEDS-z62j4c9FESTUxdTZxKojyqcbOOIN_8",
+        "scope": [
+            "get_user_info",
+            "get_friends",
+            "payment",
+            "send_request"
+        ],
+        "token_type": "Bearer",
+        "uid": 10050899
+    });
+});
 // ============================================
 // ROTA 5: TOKEN EXCHANGE
 // ============================================
