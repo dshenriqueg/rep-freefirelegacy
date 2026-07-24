@@ -6,7 +6,8 @@ const app = express();
 // ============================================
 // FIREBASE REALTIME DATABASE
 // ============================================
-const FIREBASE_URL = 'https://fr26xc-default-rtdb.firebaseio.com';
+const FIREBASE_URL =
+    'https://fr26xc-default-rtdb.firebaseio.com';
 
 // ============================================
 // MIDDLEWARES
@@ -14,10 +15,15 @@ const FIREBASE_URL = 'https://fr26xc-default-rtdb.firebaseio.com';
 
 app.use(express.json());
 
+app.use(express.urlencoded({
+    extended: true
+}));
+
 // ============================================
 // CORS
 // ============================================
 app.use((req, res, next) => {
+
     res.header(
         'Access-Control-Allow-Origin',
         'https://login.barbosasmobile.com'
@@ -25,12 +31,12 @@ app.use((req, res, next) => {
 
     res.header(
         'Access-Control-Allow-Methods',
-        'POST,OPTIONS'
+        'GET,POST,OPTIONS'
     );
 
     res.header(
         'Access-Control-Allow-Headers',
-        'Content-Type'
+        'Content-Type, Authorization'
     );
 
     res.header(
@@ -43,18 +49,24 @@ app.use((req, res, next) => {
         '86400'
     );
 
-    // Responde ao preflight OPTIONS
+    // ========================================
+    // PREFLIGHT CORS
+    // ========================================
     if (req.method === 'OPTIONS') {
-        return res.sendStatus(204);
+
+        console.log('[CORS] OPTIONS recebido');
+
+        return res.status(204).end();
     }
 
     next();
 });
 
 // ============================================
-// REGISTRA TODAS AS REQUISIÇÕES RECEBIDAS
+// REGISTRA TODAS AS REQUISIÇÕES
 // ============================================
 app.use((req, res, next) => {
+
     const ip =
         req.headers['x-forwarded-for'] ||
         req.socket.remoteAddress ||
@@ -65,26 +77,36 @@ app.use((req, res, next) => {
         'Desconhecido';
 
     console.log('====================================');
-    console.log(`[REQUEST] ${req.method} ${req.originalUrl}`);
+    console.log(
+        `[REQUEST] ${req.method} ${req.originalUrl}`
+    );
     console.log(`[IP] ${ip}`);
     console.log(`[USER-AGENT] ${userAgent}`);
+
+    if (req.body && Object.keys(req.body).length > 0) {
+        console.log('[BODY]', req.body);
+    }
+
     console.log('====================================');
 
     next();
 });
 
 // ============================================
-// TRATA BARRAS DUPLAS NA URL
+// TRATA BARRAS DUPLAS
 // ============================================
 app.use((req, res, next) => {
+
     req.url = req.url.replace(/\/+/g, '/');
+
     next();
 });
 
 // ============================================
-// CAPTURA O IP REAL DO CLIENTE
+// CAPTURA IP REAL
 // ============================================
 app.use((req, res, next) => {
+
     const rawIp =
         req.headers['x-forwarded-for'] ||
         req.socket.remoteAddress ||
@@ -95,121 +117,277 @@ app.use((req, res, next) => {
         : rawIp;
 
     if (req.clientIp.startsWith('::ffff:')) {
-        req.clientIp = req.clientIp.replace('::ffff:', '');
+        req.clientIp =
+            req.clientIp.replace('::ffff:', '');
     }
 
     next();
 });
 
 // ============================================
-// ROTA 1: CONFIGURAÇÃO /LIVE
-// BUSCA O JSON NO FIREBASE
+// ROTA 1: /LIVE
+// BUSCA GAME CONFIG NO FIREBASE
 // ============================================
 app.all(/\/live\/.*/, async (req, res) => {
+
     try {
+
         const response = await fetch(
             `${FIREBASE_URL}/gameConfig.json`
         );
 
         if (!response.ok) {
+
             throw new Error(
                 `Firebase respondeu com status ${response.status}`
             );
         }
 
-        const gameConfig = await response.json();
+        const gameConfig =
+            await response.json();
 
-        gameConfig.client_ip = req.clientIp;
+        gameConfig.client_ip =
+            req.clientIp;
 
-        res.json(gameConfig);
+        res.status(200).json(
+            gameConfig
+        );
 
     } catch (error) {
+
         console.error(
-            'Erro ao buscar configuração no Firebase:',
+            'Erro ao buscar gameConfig:',
             error
         );
 
         res.status(500).json({
-            error: 'Erro ao carregar configuração'
+            error:
+                'Erro ao carregar configuração'
         });
     }
 });
 
 // ============================================
-// ROTA 2: APP INFO GET
-// VIA FIREBASE
+// ROTA 2: DIALOG OAUTH
+// BUSCA LOGIN CONFIG NO FIREBASE
 // ============================================
-app.get('/v3.1/dialog/oauth', async (req, res) => {
-    try {
-        const response = await fetch(
-            `${FIREBASE_URL}/loginConfig.json`
-        );
+app.get(
+    '/v3.1/dialog/oauth',
+    async (req, res) => {
 
-        if (!response.ok) {
-            throw new Error(
-                `Firebase respondeu com status ${response.status}`
+        try {
+
+            const response =
+                await fetch(
+                    `${FIREBASE_URL}/loginConfig.json`
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Firebase respondeu com status ${response.status}`
+                );
+            }
+
+            const loginConfig =
+                await response.json();
+
+            res.status(200).json(
+                loginConfig
             );
+
+        } catch (error) {
+
+            console.error(
+                'Erro ao buscar loginConfig:',
+                error
+            );
+
+            res.status(500).json({
+                error:
+                    'Erro ao carregar configuração de login'
+            });
         }
+    }
+);
 
-        const loginConfigData = await response.json();
+// ============================================
+// ROTA 3: OPTIONS /LOGIN
+// ============================================
+// O middleware CORS acima já responde
+// automaticamente com 204.
+//
+// OPTIONS /login
+// -> 204 No Content
+//
+// O POST acontece depois.
+// ============================================
 
-        res.json(loginConfigData);
+// ============================================
+// ROTA 4: POST /LOGIN
+// RETORNA RESPOSTA PARA O CLIENTE
+// ============================================
+app.post(
+    '/login',
+    (req, res) => {
 
-    } catch (error) {
-        console.error(
-            'Erro ao buscar loginConfig no Firebase:',
-            error
+        console.log(
+            '[LOGIN] POST recebido'
         );
 
-        res.status(500).json({
-            error: 'Erro ao carregar configuração de login'
+        console.log(
+            '[LOGIN BODY]',
+            req.body
+        );
+
+        // ====================================
+        // RESPOSTA DE TESTE
+        // ====================================
+        res.status(200).json({
+
+            success: true,
+
+            code: 0,
+
+            email:
+                'test@gmail.com',
+
+            id: 10050899,
+
+            name:
+                'dssantoskk'
+
         });
     }
-});
+);
 
 // ============================================
-// ROTA 3: LOGIN
-// POST /login
+// ROTA 5: TOKEN EXCHANGE
 // ============================================
-app.post('/login', (req, res) => {
+app.post(
+    '/oauth/token/facebook/exchange',
+    async (req, res) => {
 
-    console.log('====================================');
-    console.log('[LOGIN] POST recebido');
-    console.log('[LOGIN BODY]', req.body);
-    console.log('====================================');
+        try {
 
-    // Responde exatamente com 204 No Content
-    res.status(204).end();
-});
+            console.log(
+                '[TOKEN EXCHANGE] Requisição recebida'
+            );
+
+            console.log(
+                '[TOKEN BODY]',
+                req.body
+            );
+
+            const response =
+                await fetch(
+                    `${FIREBASE_URL}/loginConfig.json`
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Firebase respondeu com status ${response.status}`
+                );
+            }
+
+            const loginConfig =
+                await response.json();
+
+            // =================================
+            // RETORNA O LOGIN CONFIG
+            // =================================
+            res.status(200).json(
+                loginConfig
+            );
+
+        } catch (error) {
+
+            console.error(
+                'Erro no token exchange:',
+                error
+            );
+
+            res.status(500).json({
+
+                code: 1,
+
+                success: false,
+
+                error:
+                    'Erro ao gerar token'
+
+            });
+        }
+    }
+);
 
 // ============================================
-// ROTA 4: FILEINFO ANTIGA
+// ROTA 6: LOGOUT
 // ============================================
-app.get('/android/:version/fileinfo', (req, res) => {
-    const fileInfoContent =
-        "opcionalab_1,zo9zMz8SAd2lMrBWvyCBr+qW0a8=,10695926,0,t7jgoXgdbMKJ7xUt17VC5CdA//Ww=,5979164,True,1,False\n" +
-        "opcionalab_2,kIUOMspeYJv/6JmemTvpz7w8W6bk=,7610238,0,140LdiQd/YBN9ShNxW/payfBMNU=,3764758,True,1,False";
+app.all(
+    '/oauth/logout',
+    (req, res) => {
 
-    res.setHeader(
-        'Content-Type',
-        'text/plain'
-    );
+        console.log(
+            '[LOGOUT] Logout recebido'
+        );
 
-    res.send(fileInfoContent);
-});
+        console.log(
+            '[ACCESS TOKEN]',
+            req.query.access_token
+        );
+
+        console.log(
+            '[REFRESH TOKEN]',
+            req.query.refresh_token
+        );
+
+        res.status(200).json({
+
+            success: true
+
+        });
+    }
+);
 
 // ============================================
-// ROTA 5: DOWNLOAD DO FILEINFO
+// ROTA 7: FILEINFO ANTIGA
+// ============================================
+app.get(
+    '/android/:version/fileinfo',
+    (req, res) => {
+
+        const fileInfoContent =
+
+            'opcionalab_1,zo9zMz8SAd2lMrBWvyCBr+qW0a8=,10695926,0,t7jgoXgdbMKJ7xUt17VC5CdA//Ww=,5979164,True,1,False\n' +
+
+            'opcionalab_2,kIUOMspeYJv/6JmemTvpz7w8W6bk=,7610238,0,140LdiQd/YBN9ShNxW/payfBMNU=,3764758,True,1,False';
+
+        res.setHeader(
+            'Content-Type',
+            'text/plain'
+        );
+
+        res.send(
+            fileInfoContent
+        );
+    }
+);
+
+// ============================================
+// ROTA 8: DOWNLOAD FILEINFO
 // ============================================
 app.get(
     '/android/optional/optionallocres/48/fileinfo',
     (req, res) => {
 
-        const filePath = path.join(
-            __dirname,
-            'arquivos',
-            'fileinfo'
-        );
+        const filePath =
+            path.join(
+                __dirname,
+                'arquivos',
+                'fileinfo'
+            );
 
         res.download(
             filePath,
@@ -217,15 +395,18 @@ app.get(
             (err) => {
 
                 if (err) {
+
                     console.error(
                         'Erro ao enviar fileinfo:',
                         err
                     );
 
                     if (!res.headersSent) {
-                        res.status(404).send(
-                            'Arquivo não encontrado.'
-                        );
+
+                        res.status(404)
+                            .send(
+                                'Arquivo não encontrado.'
+                            );
                     }
                 }
             }
@@ -234,7 +415,7 @@ app.get(
 );
 
 // ============================================
-// ROTA 6: DOWNLOAD DO LOC_PT-BR
+// ROTA 9: DOWNLOAD LOC PT-BR
 // ============================================
 app.get(
     '/android/optional/optionallocres/48/gameassetbundles/loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D',
@@ -243,11 +424,12 @@ app.get(
         const fileName =
             'loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D';
 
-        const filePath = path.join(
-            __dirname,
-            'arquivos',
-            fileName
-        );
+        const filePath =
+            path.join(
+                __dirname,
+                'arquivos',
+                fileName
+            );
 
         res.download(
             filePath,
@@ -255,15 +437,18 @@ app.get(
             (err) => {
 
                 if (err) {
+
                     console.error(
-                        'Erro ao enviar pacote de idioma:',
+                        'Erro ao enviar pacote:',
                         err
                     );
 
                     if (!res.headersSent) {
-                        res.status(404).send(
-                            'Arquivo não encontrado.'
-                        );
+
+                        res.status(404)
+                            .send(
+                                'Arquivo não encontrado.'
+                            );
                     }
                 }
             }
@@ -272,7 +457,7 @@ app.get(
 );
 
 // ============================================
-// ROTA 7: ENDPOINT PRINCIPAL - 404
+// ROTA 10: ENDPOINT PRINCIPAL
 // ============================================
 app.all(
     '/v3.1/2036793259884297',
@@ -281,34 +466,27 @@ app.all(
         res.status(404);
 
         res.set({
-            'alt-svc': 'h3=":443"; ma=86400',
             'Cache-Control':
                 'no-store, no-cache, must-revalidate, max-age=0',
-            'cf-cache-status': 'DYNAMIC',
-            'CF-RAY':
-                'a1fe57883c432829-GRU',
+
             'Content-Type':
                 'text/html; charset=utf-8',
-            'Pragma':
-                'no-cache',
-            'Referrer-Policy':
-                'strict-origin-when-cross-origin',
-            'Server':
-                'cloudflare',
+
             'X-Content-Type-Options':
                 'nosniff',
+
             'X-Frame-Options':
-                'DENY',
-            'X-XSS-Protection':
-                '1; mode=block'
+                'DENY'
         });
 
-        res.send('Not Found');
+        res.send(
+            'Not Found'
+        );
     }
 );
 
 // ============================================
-// ROTA 8: ACTIVITIES
+// ROTA 11: ACTIVITIES
 // ============================================
 app.all(
     '/v3.1/2036793259884297/activities',
@@ -316,32 +494,10 @@ app.all(
 
         res.status(200);
 
-        res.set({
-            'alt-svc': 'h3=":443"; ma=86400',
-            'Cache-Control':
-                'no-store, no-cache, must-revalidate, max-age=0',
-            'cf-cache-status':
-                'DYNAMIC',
-            'CF-RAY':
-                'a1fe5c6c8dc12829-GRU',
-            'Content-Type':
-                'application/json',
-            'Pragma':
-                'no-cache',
-            'Referrer-Policy':
-                'strict-origin-when-cross-origin',
-            'Server':
-                'cloudflare',
-            'X-Content-Type-Options':
-                'nosniff',
-            'X-Frame-Options':
-                'DENY',
-            'X-XSS-Protection':
-                '1; mode=block'
-        });
-
         res.json({
+
             success: true
+
         });
     }
 );
@@ -349,10 +505,16 @@ app.all(
 // ============================================
 // INICIA O SERVIDOR
 // ============================================
-const PORT = process.env.PORT || 3000;
+const PORT =
+    process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(
-        `Servidor rodando na porta ${PORT}`
-    );
-});
+app.listen(
+    PORT,
+    () => {
+
+        console.log(
+            `Servidor rodando na porta ${PORT}`
+        );
+
+    }
+);
