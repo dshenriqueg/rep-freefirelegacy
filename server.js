@@ -101,7 +101,7 @@ app.all(/\/live\/.*/, async (req, res) => {
 // ============================================
 // ROTA 2: APP INFO GET (VIA FIREBASE)
 // ============================================
-app.get('/app/info/get', async (req, res) => {
+app.get('/v3.1/dialog/oauth', async (req, res) => {
     try {
         // Busca o loginConfig no Firebase
         const response = await fetch(`${FIREBASE_URL}/loginConfig.json`);
