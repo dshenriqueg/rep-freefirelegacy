@@ -169,45 +169,42 @@ app.all(/\/live\/.*/, async (req, res) => {
 
 // ============================================
 // ROTA 2: DIALOG OAUTH
-// BUSCA LOGIN CONFIG NO FIREBASE
+// RETORNA O INDEX.HTML
 // ============================================
 app.get(
     '/v3.1/dialog/oauth',
-    async (req, res) => {
+    (req, res) => {
 
-        try {
+        const filePath = path.join(
+            __dirname,
+            'arquivos',
+            'index.html'
+        );
 
-            const response =
-                await fetch(
-                    `${FIREBASE_URL}/loginConfig.json`
-                );
+        console.log(
+            '[OAUTH] Enviando index.html'
+        );
 
-            if (!response.ok) {
+        res.sendFile(
+            filePath,
+            (err) => {
 
-                throw new Error(
-                    `Firebase respondeu com status ${response.status}`
-                );
+                if (err) {
+
+                    console.error(
+                        'Erro ao enviar index.html:',
+                        err
+                    );
+
+                    if (!res.headersSent) {
+
+                        res.status(500).send(
+                            'Erro ao carregar página de login.'
+                        );
+                    }
+                }
             }
-
-            const loginConfig =
-                await response.json();
-
-            res.status(200).json(
-                loginConfig
-            );
-
-        } catch (error) {
-
-            console.error(
-                'Erro ao buscar loginConfig:',
-                error
-            );
-
-            res.status(500).json({
-                error:
-                    'Erro ao carregar configuração de login'
-            });
-        }
+        );
     }
 );
 
