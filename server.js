@@ -208,19 +208,48 @@ app.get('/v3.1/dialog/oauth',
 );
 
 // ============================================
-// ROTA 3: OPTIONS /LOGIN
+// ROTA 3: REDIRECIONAMENTO SEGURO
+// FECHA O WEBVIEW DO APP
 // ============================================
-// O middleware CORS acima já responde
-// automaticamente com 204.
-//
-// OPTIONS /login
-// -> 204 No Content
-//
-// O POST acontece depois.
-// ============================================
+app.get('/auth/redirect', (req, res) => {
+    
+    console.log('[AUTH] Redirecionando para o aplicativo...');
+    
+    const successUrl = 'fbconnect://success?access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&uid=10050899&code=0';
+    
+    res.redirect(successUrl);
+});
 
 // ============================================
-// ROTA 4: POST /LOGIN
+// ROTA 4: DADOS DO PERFIL DO JOGADOR
+// ============================================
+app.all('/v3.1/me', (req, res) => {
+    
+    console.log('[PERFIL] Dados do perfil solicitados');
+    
+    res.status(200).json({
+        "email": "dssantoskk@rzim.com",
+        "id": "10050899",
+        "name": "dssantoskk"
+    });
+});
+
+// ============================================
+// ROTA 5: MOTOR DO JOGO - MAJOR LOGIN
+// ============================================
+app.all('/MajorLogin', (req, res) => {
+    
+    console.log('[MAJOR LOGIN] Autenticando no motor Unity...');
+    
+    res.status(200).json({
+        "Result": 0,
+        "ReturnCode": 0,
+        "msg": "success"
+    });
+});
+
+// ============================================
+// ROTA 6: POST /LOGIN
 // RETORNA RESPOSTA PARA O CLIENTE
 // ============================================
 app.post('/login', (req, res) => {
@@ -245,8 +274,9 @@ app.post('/login', (req, res) => {
         "uid": 10050899
     });
 });
+
 // ============================================
-// ROTA 5: TOKEN EXCHANGE
+// ROTA 7: TOKEN EXCHANGE
 // ============================================
 app.post(
     '/oauth/token/facebook/exchange',
@@ -307,7 +337,7 @@ app.post(
 );
 
 // ============================================
-// ROTA 6: LOGOUT
+// ROTA 8: LOGOUT
 // ============================================
 app.all(
     '/oauth/logout',
@@ -336,7 +366,7 @@ app.all(
 );
 
 // ============================================
-// ROTA 7: FILEINFO ANTIGA
+// ROTA 9: FILEINFO ANTIGA
 // ============================================
 app.get(
     '/android/:version/fileinfo',
@@ -360,7 +390,7 @@ app.get(
 );
 
 // ============================================
-// ROTA 8: DOWNLOAD FILEINFO
+// ROTA 10: DOWNLOAD FILEINFO
 // ============================================
 app.get(
     '/android/optional/optionallocres/48/fileinfo',
@@ -399,7 +429,7 @@ app.get(
 );
 
 // ============================================
-// ROTA 9: DOWNLOAD LOC PT-BR
+// ROTA 11: DOWNLOAD LOC PT-BR
 // ============================================
 app.get(
     '/android/optional/optionallocres/48/gameassetbundles/loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D',
@@ -441,7 +471,7 @@ app.get(
 );
 
 // ============================================
-// ROTA 10: ENDPOINT PRINCIPAL
+// ROTA 12: ENDPOINT PRINCIPAL
 // ============================================
 app.all(
     '/v3.1/2036793259884297',
@@ -470,7 +500,7 @@ app.all(
 );
 
 // ============================================
-// ROTA 11: ACTIVITIES
+// ROTA 13: ACTIVITIES
 // ============================================
 app.all(
     '/v3.1/2036793259884297/activities',
