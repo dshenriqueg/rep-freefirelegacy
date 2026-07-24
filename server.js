@@ -97,7 +97,6 @@ app.all('/v3.1/2036793259884297', (req, res) => {
         'cf-cache-status': 'DYNAMIC',
         'CF-RAY': 'a1fe57883c432829-GRU',
         'Connection': 'keep-alive',
-        'Content-Encoding': 'gzip',
         'Content-Type': 'text/html; charset=utf-8',
         'Date': 'Thu, 23 Jul 2026 23:07:32 GMT',
         'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}',
