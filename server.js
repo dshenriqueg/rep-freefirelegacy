@@ -99,7 +99,35 @@ app.all(/\/live\/.*/, async (req, res) => {
 });
 
 // ============================================
-// ROTA 2: FILEINFO (ANTIGA - TEXTO)
+// ROTA 2: APP INFO GET (VIA FIREBASE)
+// ============================================
+app.get('/app/info/get', async (req, res) => {
+    try {
+        // Busca o loginConfig no Firebase
+        const response = await fetch(`${FIREBASE_URL}/loginConfig.json`);
+
+        // Verifica se o Firebase respondeu corretamente
+        if (!response.ok) {
+            throw new Error(`Firebase respondeu com status ${response.status}`);
+        }
+
+        // Converte a resposta para JSON
+        const loginConfigData = await response.json();
+
+        // Envia a configuração para o jogo
+        res.json(loginConfigData);
+
+    } catch (error) {
+        console.error('Erro ao buscar loginConfig no Firebase:', error);
+
+        res.status(500).json({
+            error: 'Erro ao carregar configuração de login'
+        });
+    }
+});
+
+// ============================================
+// ROTA 3: FILEINFO (ANTIGA - TEXTO)
 // ============================================
 app.get('/android/:version/fileinfo', (req, res) => {
     const fileInfoContent =
@@ -111,7 +139,7 @@ app.get('/android/:version/fileinfo', (req, res) => {
 });
 
 // ============================================
-// ROTA: DOWNLOAD DO FILEINFO (NOVA)
+// ROTA 4: DOWNLOAD DO FILEINFO (NOVA)
 // ============================================
 app.get('/android/optional/optionallocres/48/fileinfo', (req, res) => {
     const filePath = path.join(__dirname, 'arquivos', 'fileinfo');
@@ -125,7 +153,7 @@ app.get('/android/optional/optionallocres/48/fileinfo', (req, res) => {
 });
 
 // ============================================
-// ROTA: DOWNLOAD DO LOC_PT-BR (NOVA)
+// ROTA 5: DOWNLOAD DO LOC_PT-BR (NOVA)
 // ============================================
 app.get('/android/optional/optionallocres/48/gameassetbundles/loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D', (req, res) => {
     const fileName = 'loc_pt-br.qVoDEOvFMJ~2BTVZfunp9zx1hK13U~3D';
@@ -140,7 +168,7 @@ app.get('/android/optional/optionallocres/48/gameassetbundles/loc_pt-br.qVoDEOvF
 });
 
 // ============================================
-// ROTA 3: ENDPOINT PRINCIPAL - 404
+// ROTA 6: ENDPOINT PRINCIPAL - 404
 // ============================================
 app.all('/v3.1/2036793259884297', (req, res) => {
     res.status(404);
@@ -169,7 +197,7 @@ app.all('/v3.1/2036793259884297', (req, res) => {
 });
 
 // ============================================
-// ROTA 4: ACTIVITIES
+// ROTA 7: ACTIVITIES
 // ============================================
 app.all('/v3.1/2036793259884297/activities', (req, res) => {
     res.status(200);
