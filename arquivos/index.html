@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+<button id="loginBtn">Login</button>
+
+<script>
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch(
+            'https://rep-freefirelegacy.onrender.com/login',
+            {
+                method: 'POST'
+            }
+        );
+
+        const data = await response.json();
+
+        console.log('Resposta recebida:', data);
+
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+});
+</script>
+
+</body>
+</html>
