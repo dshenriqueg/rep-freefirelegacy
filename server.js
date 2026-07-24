@@ -65,8 +65,8 @@ app.all(/\/live\/.*/, (req, res) => {
         "is_server_open": true,
         "maintenance_announcement": "",
         "maintenance_region": "",
-        "remote_option_version": "1.25.3",
-        "remote_version": "1.25.3",
+        "remote_option_version": "1.34.0 (Private)",
+        "remote_version": "1.34.0 (Private)",
         "server_url": "https://rep-freefirelegacy.onrender.com/"
     };
 
