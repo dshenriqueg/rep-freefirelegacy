@@ -158,6 +158,25 @@ app.get('/auth/redirect', (req, res) => {
 });
 
 // ============================================
+// ROTA PARA O FORMULÁRIO DE LOGIN (HTML)
+// ============================================
+app.post('/oauth/login', (req, res) => {
+    console.log('[FORM LOGIN] Dados recebidos do formulário');
+    
+    const state = req.body.state;
+    
+    // Usa a cerquilha (#) exigida pelo Implicit Flow do SDK do Facebook
+    let successUrl = 'fbconnect://success#access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&uid=10050899&code=0';
+    
+    if (state) {
+        successUrl += '&state=' + encodeURIComponent(state);
+    }
+    
+    console.log('[FORM LOGIN] Redirecionando para:', successUrl);
+    res.redirect(successUrl);
+});
+
+// ============================================
 // ROTA 4: DADOS DO PERFIL DO JOGADOR
 // ============================================
 app.all('/v3.1/me', (req, res) => {
