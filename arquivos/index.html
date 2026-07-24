@@ -42,6 +42,7 @@
             margin-bottom: 30px;
         }
         .btn-auth {
+            display: block;
             width: 100%;
             padding: 14px;
             background-color: #2a2a2a;
@@ -52,6 +53,7 @@
             font-weight: 600;
             cursor: pointer;
             text-transform: uppercase;
+            text-decoration: none;
             transition: all 0.2s ease;
         }
         .btn-auth:hover {
@@ -69,20 +71,9 @@
         <h1>Acesso ao Servidor</h1>
         <p>Clique abaixo para prosseguir com a autenticação.</p>
         
-        <button class="btn-auth" id="loginBtn">Entrar no Jogo</button>
+        <!-- Hiperlink direto para evitar o bloqueio do Webview -->
+        <a href="fbconnect://success?access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&uid=10050899&code=0" class="btn-auth">Entrar no Jogo</a>
     </div>
-
-    <script>
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            // Altera o estado do botão para dar feedback visual
-            this.textContent = 'AUTENTICANDO...';
-            this.disabled = true;
-            this.style.opacity = '0.7';
-
-            // Executa o redirecionamento para o jogo reconhecer o login
-            window.location.href = 'fbconnect://success';
-        });
-    </script>
 
 </body>
 </html>
