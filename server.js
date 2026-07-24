@@ -168,7 +168,7 @@ app.post('/oauth/login', (req, res) => {
     
     const state = req.body.state;
     
-    let successUrl = 'fbconnect://success#access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&uid=10050899&code=0';
+   let successUrl = 'fbconnect://success#access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&signed_request=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODQ5MTc1MjYsImlhdCI6MTc4NDkxNDQ0NCwib25lX2JpdHBfcGFzc3dvcmQiOjAsInBhZ2VfaWQiOm51bGwsInVzZXJfaWQiOiJMcmFzY09Jb0ZlZ1l5M3Jza05xRXZjWktfU0luIn0.mock_signature_for_freefire&data_access_expiration_time=1784917526&expires_in=1296000&graph_domain=facebook&juice=1&reauthorize_required=0&open_id=cltiqdc21ieduregmd0vqoncca441r95&code=0';
     
     if (state) {
         successUrl += '&state=' + encodeURIComponent(state);
