@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
-app.use(express.static(path.join(__dirname, 'arquivos')));
 
-const app = express();
+const app = express(); // <- Primeiro cria o app
+
+// Agora sim você usa o app!
+app.use(express.static(path.join(__dirname, 'arquivos')));
 
 
 // ============================================
