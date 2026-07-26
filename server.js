@@ -372,38 +372,28 @@ app.get('/app/info/get', (req, res) => {
     });
 });
 // ============================================
-// ROTA 15: REGISTRO DE CONVIDADO (GUEST REGISTER)
+// ROTA 15 & 16: REGISTRO E RENOVAÇÃO GUEST (DINÂMICO)
 // ============================================
-app.post('/oauth/guest/register', (req, res) => {
-    console.log('[GUEST LOGIN] Registro de convidado solicitado');
+// Esse regex captura qualquer rota de registro ou renovação (grant) do convidado
+app.all([/.*guest.*register.*/, /.*guest.*grant.*/, /.*token.*grant.*/], (req, res) => {
     
-    // O SDK exige exatamente estas 4 chaves para sucesso:
-    // open_id, access_token, refresh_token e expiry_time
+    // Captura o UID e os dados que o cache do jogo enviar, ou usa o nosso padrão
+    const requestedUid = req.body.uid || req.query.uid || req.body.open_id || "10050899";
+    
+    console.log(`[GUEST LOGIN] Sucesso! Autenticando UID: ${requestedUid}`);
+    console.log(`[ROTA CHAMADA] ${req.originalUrl}`);
+
+    // Devolvemos exatamente o que o GuestRegistrationHandler exige, com o UID dinâmico
     res.status(200).json({
-        "open_id": "10050899", // Usando o mesmo ID de teste
+        "open_id": String(requestedUid),
         "access_token": "k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm",
         "refresh_token": "5ihNvyZLKAWrdFnzqWXB1epAQNFHloEDS-z62j4c9FESTUxdTZxKojyqcbOOIN_8",
-        "expiry_time": Math.floor(Date.now() / 1000) + 1296000, // Expira em 15 dias
-        "uid": 10050899,
+        "expiry_time": Math.floor(Date.now() / 1000) + (86400 * 30), // Token válido por 30 dias
+        "uid": Number(requestedUid),
         "code": 0
     });
 });
 
-// ============================================
-// ROTA 16: RENOVAÇÃO/GRANT DE CONVIDADO (GUEST GRANT)
-// ============================================
-app.post('/oauth/guest/token/grant', (req, res) => {
-    console.log('[GUEST LOGIN] Grant de token de convidado solicitado');
-    
-    res.status(200).json({
-        "open_id": "10050899",
-        "access_token": "k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm",
-        "refresh_token": "5ihNvyZLKAWrdFnzqWXB1epAQNFHloEDS-z62j4c9FESTUxdTZxKojyqcbOOIN_8",
-        "expiry_time": Math.floor(Date.now() / 1000) + 1296000,
-        "uid": 10050899,
-        "code": 0
-    });
-});
 
 
 // ============================================
