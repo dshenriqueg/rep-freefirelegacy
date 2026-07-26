@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
+app.use(express.static(path.join(__dirname, 'arquivos')));
 
 const app = express();
+
 
 // ============================================
 // FIREBASE REALTIME DATABASE
