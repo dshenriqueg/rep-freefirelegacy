@@ -371,6 +371,40 @@ app.get('/app/info/get', (req, res) => {
         "msg": "success"
     });
 });
+// ============================================
+// ROTA 15: REGISTRO DE CONVIDADO (GUEST REGISTER)
+// ============================================
+app.post('/oauth/guest/register', (req, res) => {
+    console.log('[GUEST LOGIN] Registro de convidado solicitado');
+    
+    // O SDK exige exatamente estas 4 chaves para sucesso:
+    // open_id, access_token, refresh_token e expiry_time
+    res.status(200).json({
+        "open_id": "10050899", // Usando o mesmo ID de teste
+        "access_token": "k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm",
+        "refresh_token": "5ihNvyZLKAWrdFnzqWXB1epAQNFHloEDS-z62j4c9FESTUxdTZxKojyqcbOOIN_8",
+        "expiry_time": Math.floor(Date.now() / 1000) + 1296000, // Expira em 15 dias
+        "uid": 10050899,
+        "code": 0
+    });
+});
+
+// ============================================
+// ROTA 16: RENOVAÇÃO/GRANT DE CONVIDADO (GUEST GRANT)
+// ============================================
+app.post('/oauth/guest/token/grant', (req, res) => {
+    console.log('[GUEST LOGIN] Grant de token de convidado solicitado');
+    
+    res.status(200).json({
+        "open_id": "10050899",
+        "access_token": "k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm",
+        "refresh_token": "5ihNvyZLKAWrdFnzqWXB1epAQNFHloEDS-z62j4c9FESTUxdTZxKojyqcbOOIN_8",
+        "expiry_time": Math.floor(Date.now() / 1000) + 1296000,
+        "uid": 10050899,
+        "code": 0
+    });
+});
+
 
 // ============================================
 // INICIA O SERVIDOR
