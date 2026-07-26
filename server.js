@@ -160,15 +160,12 @@ app.get('/auth/redirect', (req, res) => {
 // ============================================
 // ROTA PARA O FORMULÁRIO DE LOGIN (HTML)
 // ============================================
-// ============================================
-// ROTA PARA O FORMULÁRIO DE LOGIN (HTML)
-// ============================================
 app.post('/oauth/login', (req, res) => {
     console.log('[FORM LOGIN] Dados recebidos do formulário');
     
     const state = req.body.state;
     
-   let successUrl = 'fbconnect://success#access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&signed_request=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODQ5MTc1MjYsImlhdCI6MTc4NDkxNDQ0NCwib25lX2JpdHBfcGFzc3dvcmQiOjAsInBhZ2VfaWQiOm51bGwsInVzZXJfaWQiOiJMcmFzY09Jb0ZlZ1l5M3Jza05xRXZjWktfU0luIn0.mock_signature_for_freefire&data_access_expiration_time=1784917526&expires_in=1296000&graph_domain=facebook&juice=1&reauthorize_required=0&open_id=cltiqdc21ieduregmd0vqoncca441r95&code=0';
+    let successUrl = 'fbconnect://success#access_token=k7Gsl1_nUijcuS9EOr6toU56mmE6SxCYNl7_UQD3gCfUWqWbsUERPeorpDW7Uebm&signed_request=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODQ5MTc1MjYsImlhdCI6MTc4NDkxNDQ0NCwib25lX2JpdHBfcGFzc3dvcmQiOjAsInBhZ2VfaWQiOm51bGwsInVzZXJfaWQiOiJMcmFzY09Jb0ZlZ1l5M3Jza05xRXZjWktfU0luIn0.mock_signature_for_freefire&data_access_expiration_time=1784917526&expires_in=1296000&graph_domain=facebook&juice=1&reauthorize_required=0&open_id=cltiqdc21ieduregmd0vqoncca441r95&code=0';
     
     if (state) {
         successUrl += '&state=' + encodeURIComponent(state);
@@ -259,9 +256,6 @@ app.post('/oauth/token/facebook/exchange', async (req, res) => {
 
         const loginConfig = await response.json();
 
-        // =================================
-        // RETORNA O LOGIN CONFIG
-        // =================================
         res.status(200).json(loginConfig);
 
     } catch (error) {
@@ -350,6 +344,19 @@ app.all('/v3.1/2036793259884297', (req, res) => {
 // ============================================
 app.all('/v3.1/2036793259884297/activities', (req, res) => {
     res.status(200).json({ success: true });
+});
+
+// ============================================
+// ROTA 13.1: CORINGA GRAPH API V3.1 (FALLBACK DO SDK)
+// ============================================
+app.all(/\/v3\.1\/.*/, (req, res) => {
+    console.log('[FB GRAPH MOCK] Requisição interceptada para:', req.originalUrl);
+    res.status(200).json({
+        "id": "10050899",
+        "name": "dssantoskk",
+        "email": "dssantoskk@rzim.com",
+        "verified": true
+    });
 });
 
 // ============================================
