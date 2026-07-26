@@ -202,16 +202,29 @@ app.all('/v3.1/me', (req, res) => {
 });
 
 // ============================================
-// ROTA 5: MOTOR DO JOGO - MAJOR LOGIN
+// ROTA 5: MOTOR DO JOGO - MAJOR LOGIN (TESTE DE LOBBY)
 // ============================================
 app.all('/MajorLogin', (req, res) => {
-    console.log('[MAJOR LOGIN] Autenticando no motor Unity...');
+    console.log('[MAJOR LOGIN] Unity enviou os dados do aparelho e pediu o servidor!');
+    
+    // Vamos mandar um JSON bem completo com campos comuns de Gate Servers
     res.status(200).json({
         "Result": 0,
         "ReturnCode": 0,
-        "msg": "success"
+        "msg": "success",
+        "account_id": "10050899",
+        "session_key": "sessao_falsa_12345",
+        "gateway_ip": "127.0.0.1", // IP falso para ver se o jogo tenta conectar
+        "gateway_port": 10001,
+        "server_ip": "127.0.0.1",
+        "server_port": 10001,
+        "region": "BR",
+        "is_new_user": false,
+        "nickname": "Davi_Teste",
+        "timestamp": Math.floor(Date.now() / 1000)
     });
 });
+
 
 // ============================================
 // ROTA 6: POST /LOGIN
